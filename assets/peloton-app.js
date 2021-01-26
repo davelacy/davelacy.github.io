@@ -13,7 +13,10 @@ moodSelect.addEventListener("change", function () {
         mood: this.value,
         isExercising: true,
         currentMode: "Cycling",
-        course: {},
+        course: {
+          map: "Marin Hwy 1",
+          speed: 23,
+        },
       },
       channels: ["Peloton-demo"],
     });
