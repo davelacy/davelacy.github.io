@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PubNub JavaScript SDK QuickStart</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/materia/bootstrap.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="container-fluid mt-3">
+      <strong>Message:</strong>
+      <div class="input-group mb-1">
+        <input
+          id="update-text"
+          class="form-control"
+          type="input"
+          placeholder="Enter a message here"
+        />
+        <select class="form-control" id="mood-select">
+          <option value="none">Select your mood</option>
+          <option value="pumped">Happy</option>
+          <option value="sleepy">Sleepy</option>
+          <option value="pumped">Pumped</option>
+          <option value="bored">Bored</option>
+          <option value="curious">Curious</option>
+        </select>
+        <input
+          id="publish-button"
+          type="submit"
+          value="Submit Message"
+          class="form-control btn btn-primary"
+        />
+      </div>
+      <div class="row mt-3">
+        <div class="col-4">
+          <p><strong>Updates</strong></p>
+        </div>
+        <div class="col-6">
+          <p><strong>JSON Payloads</strong></p>
+        </div>
+        <div class="col-2">
+          <p>
+            <strong><span id="presence">Nobody else is connected</span></strong>
+          </p>
+        </div>
+      </div>
+      <div>
+        <div id="messages-top"></div>
+      </div>
+    </div>
+  </body>
+
+  <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.27.4.min.js"></script>
+
+  <script src="assets/dd-app.js"></script>
+</html>
