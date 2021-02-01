@@ -18,7 +18,7 @@ moodSelect.addEventListener("change", function () {
           speed: 23,
         },
       },
-      channels: ["Peloton-demo"],
+      channels: ["Pubnub-demo"],
     });
   }
 });
@@ -79,14 +79,14 @@ pubnub.addListener({
 // ===============================
 
 pubnub.subscribe({
-  channels: ["Peloton-demo"],
+  channels: ["Pubnub-demo"],
   withPresence: true,
 });
 
 const submitUpdate = (anEntry, anUpdate) => {
   pubnub.publish(
     {
-      channel: "Peloton-demo",
+      channel: "Pubnub-demo",
       message: { entry: anEntry, update: anUpdate },
     },
     (status, r) => {
