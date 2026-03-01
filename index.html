@@ -1,1 +1,419 @@
-test
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dave Lacy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #fafaf8;
+        --text: #1a1a1a;
+        --muted: #8a8a86;
+        --line: #d0cec8;
+        --terra: #c4846c;
+        --sage: #6b8f71;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Geist", sans-serif;
+        background: var(--line);
+        color: var(--text);
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      @keyframes tileIn {
+        from {
+          opacity: 0;
+          transform: scale(0.96);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* ---- BENTO GRID ---- */
+      .bento {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 1fr 0.8fr;
+        grid-template-rows: minmax(160px, auto) minmax(200px, auto) minmax(220px, auto);
+        grid-template-areas:
+          "name handle accent accent"
+          "name stmt   stmt   stmt"
+          "roles card1  card2  links";
+        gap: 1px;
+        min-height: 100vh;
+      }
+
+      .tile {
+        background: var(--bg);
+        padding: 2.5rem;
+        display: flex;
+        flex-direction: column;
+        animation: tileIn 0.5s ease-out both;
+      }
+
+      .tile:nth-child(1) { animation-delay: 0s; }
+      .tile:nth-child(2) { animation-delay: 0.05s; }
+      .tile:nth-child(3) { animation-delay: 0.08s; }
+      .tile:nth-child(4) { animation-delay: 0.14s; }
+      .tile:nth-child(5) { animation-delay: 0.2s; }
+      .tile:nth-child(6) { animation-delay: 0.26s; }
+      .tile:nth-child(7) { animation-delay: 0.32s; }
+
+      /* ---- NAME ---- */
+      .tile--name {
+        grid-area: name;
+        justify-content: space-between;
+        padding: 3rem;
+      }
+
+      .tile--name .accent-bar {
+        width: 48px;
+        height: 3px;
+        border-radius: 2px;
+        background: linear-gradient(90deg, var(--terra), var(--sage));
+      }
+
+      .tile--name h1 {
+        font-weight: 800;
+        font-size: clamp(3.5rem, 5.5vw, 5.5rem);
+        line-height: 0.92;
+        letter-spacing: -0.04em;
+      }
+
+      /* ---- HANDLE ---- */
+      .tile--handle {
+        grid-area: handle;
+        justify-content: flex-start;
+        padding-top: 3rem;
+      }
+
+      .tile--handle a {
+        font-size: 0.6rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.35em;
+        color: var(--muted);
+        text-decoration: none;
+        transition: color 0.25s;
+      }
+
+      .tile--handle a:hover {
+        color: var(--text);
+      }
+
+      /* ---- ACCENT GRADIENT ---- */
+      .tile--accent {
+        grid-area: accent;
+        background: linear-gradient(135deg, var(--terra) 0%, var(--sage) 100%);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .tile--accent::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+            circle at 25% 65%,
+            rgba(255, 255, 255, 0.14) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 25%,
+            rgba(0, 0, 0, 0.07) 0%,
+            transparent 45%
+          );
+      }
+
+      /* ---- STATEMENT ---- */
+      .tile--stmt {
+        grid-area: stmt;
+        justify-content: center;
+      }
+
+      .tile--stmt p {
+        font-size: 1.15rem;
+        font-weight: 300;
+        color: var(--muted);
+        line-height: 1.9;
+        max-width: 500px;
+      }
+
+      .tile--stmt p strong {
+        color: var(--text);
+        font-weight: 500;
+      }
+
+      /* ---- ROLES ---- */
+      .tile--roles {
+        grid-area: roles;
+        gap: 0.45rem;
+      }
+
+      .role {
+        font-size: 0.58rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--muted);
+        padding: 0.3rem 0 0.3rem 0.75rem;
+        border-left: 2px solid var(--line);
+        transition: color 0.25s;
+      }
+
+      .role:hover {
+        color: var(--text);
+      }
+
+      .role--tech {
+        border-left-color: var(--sage);
+      }
+
+      .role--human {
+        border-left-color: var(--terra);
+      }
+
+      /* ---- CARDS ---- */
+      .tile--card {
+        justify-content: space-between;
+        transition: background 0.3s;
+        cursor: default;
+      }
+
+      .tile--card:hover {
+        background: #f4f3f0;
+      }
+
+      .tile--card1 {
+        grid-area: card1;
+      }
+
+      .tile--card2 {
+        grid-area: card2;
+      }
+
+      .card-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+
+      .dot--sage {
+        background: var(--sage);
+      }
+
+      .dot--terra {
+        background: var(--terra);
+      }
+
+      .card-body {
+        margin-top: auto;
+      }
+
+      .card-label {
+        font-weight: 700;
+        font-size: 1rem;
+        letter-spacing: -0.01em;
+        margin-bottom: 0.35rem;
+      }
+
+      .card-text {
+        font-size: 0.75rem;
+        font-weight: 300;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      /* ---- LINKS ---- */
+      .tile--links {
+        grid-area: links;
+        justify-content: flex-end;
+        gap: 1rem;
+      }
+
+      .tile--links a {
+        font-size: 0.6rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--muted);
+        text-decoration: none;
+        transition: color 0.25s;
+      }
+
+      .tile--links a:hover {
+        color: var(--text);
+      }
+
+      .copyright {
+        font-size: 0.5rem;
+        color: var(--line);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-top: auto;
+        padding-top: 1rem;
+      }
+
+      /* ---- RESPONSIVE ---- */
+      @media (max-width: 900px) {
+        .bento {
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto;
+          grid-template-areas:
+            "name   name"
+            "handle accent"
+            "stmt   stmt"
+            "roles  roles"
+            "card1  card2"
+            "links  links";
+        }
+
+        .tile {
+          padding: 2rem;
+        }
+
+        .tile--name {
+          padding: 2.5rem 2rem;
+        }
+
+        .tile--name h1 {
+          font-size: 3.2rem;
+        }
+
+        .tile--accent {
+          min-height: 80px;
+        }
+
+        .tile--roles {
+          flex-direction: row;
+          flex-wrap: wrap;
+        }
+
+        .tile--links {
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+          align-items: center;
+          gap: 1.5rem;
+        }
+
+        .copyright {
+          margin-top: 0;
+          margin-left: auto;
+          padding-top: 0;
+        }
+      }
+
+      @media (max-width: 540px) {
+        .bento {
+          grid-template-columns: 1fr;
+          grid-template-areas:
+            "name"
+            "handle"
+            "accent"
+            "stmt"
+            "roles"
+            "card1"
+            "card2"
+            "links";
+        }
+
+        .tile--name h1 {
+          font-size: 2.8rem;
+        }
+
+        .tile--accent {
+          min-height: 48px;
+        }
+
+        .tile--links {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .copyright {
+          margin-left: 0;
+          margin-top: 0.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bento">
+      <div class="tile tile--name">
+        <div class="accent-bar"></div>
+        <h1>Dave<br />Lacy</h1>
+      </div>
+
+      <div class="tile tile--handle">
+        <a href="https://github.com/davelacy">@davelacy</a>
+      </div>
+
+      <div class="tile tile--accent"></div>
+
+      <div class="tile tile--stmt">
+        <p>
+          Building at the intersection of
+          <strong>technology and humanity</strong>. Engineering solutions at
+          GitHub by day, advocating for human-centered tech always.
+        </p>
+      </div>
+
+      <div class="tile tile--roles">
+        <span class="role role--tech">Solutions Engineer</span>
+        <span class="role role--tech">Futurist</span>
+        <span class="role role--tech">Tech Enthusiast</span>
+        <span class="role role--human">Writer</span>
+        <span class="role role--human">User's Union</span>
+      </div>
+
+      <div class="tile tile--card tile--card1">
+        <div class="card-dot dot--sage"></div>
+        <div class="card-body">
+          <div class="card-label">GitHub</div>
+          <div class="card-text">
+            Solutions Engineer helping teams ship better software, faster.
+          </div>
+        </div>
+      </div>
+
+      <div class="tile tile--card tile--card2">
+        <div class="card-dot dot--terra"></div>
+        <div class="card-body">
+          <div class="card-label">User's Union</div>
+          <div class="card-text">
+            Organizing to ensure technology is built for the people who use it.
+          </div>
+        </div>
+      </div>
+
+      <div class="tile tile--links">
+        <a href="https://github.com/davelacy">GitHub</a>
+        <a href="#">Writing</a>
+        <a href="#">User's Union</a>
+        <div class="copyright">
+          &copy; <span id="year"></span> Dave Lacy
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
