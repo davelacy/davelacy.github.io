@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Writing — Dave Lacy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #fafafa;
+        --text: #1a1a2e;
+        --muted: #7c7c8a;
+        --line: #e8e8ee;
+        --terra: #e8a0bf;
+        --sage: #a0c4e8;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Geist", sans-serif;
+        background: var(--line);
+        color: var(--text);
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      @keyframes tileIn {
+        from {
+          opacity: 0;
+          transform: scale(0.96);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* ---- HEADER BENTO ---- */
+      .header {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 0.8fr;
+        gap: 1px;
+      }
+
+      .tile {
+        background: var(--bg);
+        padding: 2.5rem;
+        display: flex;
+        flex-direction: column;
+        animation: tileIn 0.5s ease-out both;
+      }
+
+      .tile--title {
+        justify-content: flex-end;
+        padding: 3rem;
+      }
+
+      .tile--title .accent-bar {
+        width: 48px;
+        height: 3px;
+        border-radius: 2px;
+        background: linear-gradient(90deg, var(--terra), var(--sage));
+        margin-bottom: 1.25rem;
+      }
+
+      .tile--title h1 {
+        font-weight: 800;
+        font-size: clamp(2.5rem, 4vw, 4rem);
+        line-height: 0.95;
+        letter-spacing: -0.04em;
+      }
+
+      .tile--title .subtitle {
+        font-size: 0.8rem;
+        font-weight: 300;
+        color: var(--muted);
+        margin-top: 0.75rem;
+        line-height: 1.6;
+      }
+
+      .tile--nav {
+        justify-content: flex-start;
+        padding-top: 3rem;
+        gap: 1rem;
+        animation-delay: 0.05s;
+      }
+
+      .tile--nav a {
+        font-size: 0.6rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.25em;
+        color: var(--muted);
+        text-decoration: none;
+        transition: color 0.25s;
+      }
+
+      .tile--nav a:hover {
+        color: var(--text);
+      }
+
+      .tile--accent {
+        background: linear-gradient(135deg, var(--sage) 0%, var(--terra) 100%);
+        position: relative;
+        overflow: hidden;
+        min-height: 100px;
+        animation-delay: 0.08s;
+      }
+
+      .tile--accent::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+            circle at 25% 65%,
+            rgba(255, 255, 255, 0.14) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 25%,
+            rgba(0, 0, 0, 0.07) 0%,
+            transparent 45%
+          );
+      }
+
+      /* ---- POSTS GRID ---- */
+      .posts {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        margin-top: 1px;
+      }
+
+      .post {
+        background: var(--bg);
+        padding: 2.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        transition: background 0.3s;
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+        animation: tileIn 0.5s ease-out both;
+      }
+
+      .post:hover {
+        background: #f3f0f8;
+      }
+
+      .post-date {
+        font-size: 0.55rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--muted);
+      }
+
+      .post-title {
+        font-weight: 700;
+        font-size: 1.05rem;
+        letter-spacing: -0.01em;
+        line-height: 1.35;
+      }
+
+      .post-excerpt {
+        font-size: 0.78rem;
+        font-weight: 300;
+        color: var(--muted);
+        line-height: 1.7;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .post-categories {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-top: auto;
+        padding-top: 0.5rem;
+      }
+
+      .post-cat {
+        font-size: 0.5rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding: 0.25rem 0.6rem;
+        border-radius: 2px;
+        background: var(--line);
+        color: var(--muted);
+      }
+
+      .post-arrow {
+        font-size: 0.6rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--terra);
+        margin-top: auto;
+        padding-top: 0.5rem;
+        opacity: 0;
+        transform: translateX(-4px);
+        transition: opacity 0.25s, transform 0.25s;
+      }
+
+      .post:hover .post-arrow {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      /* ---- LOADING / EMPTY ---- */
+      .status-tile {
+        background: var(--bg);
+        padding: 4rem 2.5rem;
+        text-align: center;
+        grid-column: 1 / -1;
+        animation: tileIn 0.5s ease-out both;
+      }
+
+      .status-tile p {
+        font-size: 0.8rem;
+        font-weight: 300;
+        color: var(--muted);
+      }
+
+      @keyframes pulse {
+        0%, 100% { opacity: 0.4; }
+        50% { opacity: 1; }
+      }
+
+      .loading-dots span {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--terra);
+        margin: 0 3px;
+        animation: pulse 1.2s ease-in-out infinite;
+      }
+
+      .loading-dots span:nth-child(2) {
+        animation-delay: 0.2s;
+        background: linear-gradient(135deg, var(--terra), var(--sage));
+      }
+
+      .loading-dots span:nth-child(3) {
+        animation-delay: 0.4s;
+        background: var(--sage);
+      }
+
+      /* ---- FOOTER ---- */
+      .footer {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1px;
+        margin-top: 1px;
+      }
+
+      .tile--footer {
+        background: var(--bg);
+        padding: 2rem 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .copyright {
+        font-size: 0.5rem;
+        color: var(--line);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .footer-link {
+        font-size: 0.6rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--muted);
+        text-decoration: none;
+        transition: color 0.25s;
+      }
+
+      .footer-link:hover {
+        color: var(--text);
+      }
+
+      /* ---- RESPONSIVE ---- */
+      @media (max-width: 900px) {
+        .header {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .tile--accent {
+          display: none;
+        }
+
+        .posts {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .tile {
+          padding: 2rem;
+        }
+
+        .tile--title {
+          padding: 2.5rem 2rem;
+        }
+
+        .tile--title h1 {
+          font-size: 2.5rem;
+        }
+
+        .post {
+          padding: 2rem;
+        }
+      }
+
+      @media (max-width: 540px) {
+        .header {
+          grid-template-columns: 1fr;
+        }
+
+        .posts {
+          grid-template-columns: 1fr;
+        }
+
+        .tile--title h1 {
+          font-size: 2.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div class="tile tile--title">
+        <div class="accent-bar"></div>
+        <h1>Writing</h1>
+        <p class="subtitle">Recent posts from the GitHub Blog</p>
+      </div>
+
+      <div class="tile tile--nav">
+        <a href="index.html">← Home</a>
+        <a href="https://github.com/davelacy">@davelacy</a>
+      </div>
+
+      <div class="tile tile--accent"></div>
+    </div>
+
+    <div class="posts" id="posts">
+      <div class="status-tile" id="loading">
+        <div class="loading-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <p style="margin-top: 1rem">Loading posts&hellip;</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="tile tile--footer">
+        <span class="copyright">&copy; <span id="year"></span> Dave Lacy</span>
+        <a class="footer-link" href="index.html">Back to Home</a>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      const RSS_URL = "https://github.blog/feed/";
+      const PROXY = "https://api.rss2json.com/v1/api.json?rss_url=";
+
+      async function loadPosts() {
+        const container = document.getElementById("posts");
+        const loading = document.getElementById("loading");
+
+        try {
+          const res = await fetch(PROXY + encodeURIComponent(RSS_URL));
+          if (!res.ok) throw new Error("Feed unavailable");
+
+          const data = await res.json();
+          if (!data.items || data.items.length === 0) throw new Error("No posts");
+
+          loading.remove();
+
+          data.items.forEach((item, i) => {
+            const date = new Date(item.pubDate).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            });
+
+            const excerpt = stripHtml(item.description).slice(0, 180) + "…";
+
+            const cats = (item.categories || []).slice(0, 3);
+
+            const el = document.createElement("a");
+            el.className = "post";
+            el.href = item.link;
+            el.target = "_blank";
+            el.rel = "noopener noreferrer";
+            el.style.animationDelay = `${0.12 + i * 0.05}s`;
+
+            el.innerHTML = `
+              <span class="post-date">${date}</span>
+              <span class="post-title">${item.title}</span>
+              <span class="post-excerpt">${excerpt}</span>
+              ${cats.length ? `<div class="post-categories">${cats.map((c) => `<span class="post-cat">${c}</span>`).join("")}</div>` : ""}
+              <span class="post-arrow">Read →</span>
+            `;
+
+            container.appendChild(el);
+          });
+        } catch (err) {
+          loading.innerHTML = `<p>Could not load posts. <a href="${RSS_URL}" style="color:var(--terra)">Visit feed directly →</a></p>`;
+        }
+      }
+
+      function stripHtml(html) {
+        const tmp = document.createElement("div");
+        tmp.innerHTML = html;
+        return tmp.textContent || tmp.innerText || "";
+      }
+
+      loadPosts();
+    </script>
+  </body>
+</html>

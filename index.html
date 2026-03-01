@@ -12,12 +12,12 @@
     />
     <style>
       :root {
-        --bg: #fafaf8;
-        --text: #1a1a1a;
-        --muted: #8a8a86;
-        --line: #d0cec8;
-        --terra: #c4846c;
-        --sage: #6b8f71;
+        --bg: #fafafa;
+        --text: #1a1a2e;
+        --muted: #7c7c8a;
+        --line: #e8e8ee;
+        --terra: #e8a0bf;
+        --sage: #a0c4e8;
       }
 
       * {
@@ -100,6 +100,15 @@
         grid-area: handle;
         justify-content: flex-start;
         padding-top: 3rem;
+      }
+
+      .tile--handle .avatar {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 1rem;
+        border: 2px solid var(--line);
       }
 
       .tile--handle a {
@@ -196,7 +205,7 @@
       }
 
       .tile--card:hover {
-        background: #f4f3f0;
+        background: #f3f0f8;
       }
 
       .tile--card1 {
@@ -361,6 +370,11 @@
       </div>
 
       <div class="tile tile--handle">
+        <img
+          src="https://github.com/davelacy.png"
+          alt="Dave Lacy"
+          class="avatar"
+        />
         <a href="https://github.com/davelacy">@davelacy</a>
       </div>
 
@@ -404,7 +418,7 @@
 
       <div class="tile tile--links">
         <a href="https://github.com/davelacy">GitHub</a>
-        <a href="#">Writing</a>
+        <a href="blog.html">Writing</a>
         <a href="#">User's Union</a>
         <div class="copyright">
           &copy; <span id="year"></span> Dave Lacy
